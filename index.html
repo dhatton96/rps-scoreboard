@@ -103,48 +103,70 @@
     font-weight: 300;
   }
 
-  .add-btn {
+  /* === PLAYER BUTTONS === */
+  .player-btns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+  }
+  .score-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 56px;
-    height: 56px;
     border-radius: 50%;
     border: 2px solid rgba(255,255,255,0.15);
     background: rgba(255,255,255,0.05);
     color: #fff;
-    font-size: 28px;
     font-weight: 300;
     cursor: pointer;
     transition: all 0.2s;
-    margin-top: 8px;
     -webkit-user-select: none;
     user-select: none;
   }
-  .add-btn:active {
+  .score-btn.btn-plus {
+    width: 56px;
+    height: 56px;
+    font-size: 28px;
+  }
+  .score-btn.btn-minus {
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+    border-color: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.4);
+  }
+  .score-btn.btn-plus:active {
     transform: scale(0.9);
     background: #c8102e;
     border-color: #c8102e;
+  }
+  .score-btn.btn-minus:active {
+    transform: scale(0.9);
+    background: #334455;
+    border-color: #556677;
+    color: #fff;
   }
 
   /* === BETTING MARKETS === */
   .markets-section {
     padding: 24px 16px;
   }
-  .markets-header {
+  .section-header {
     display: flex;
     align-items: center;
     gap: 8px;
     margin-bottom: 12px;
   }
-  .markets-title {
+  .section-title {
     font-size: 14px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 2px;
     color: #ffd700;
   }
-  .markets-live {
+  .section-badge {
     font-size: 9px;
     background: #c8102e;
     color: #fff;
@@ -190,6 +212,91 @@
     font-size: 16px;
     font-weight: 800;
     color: #ffd700;
+  }
+
+  /* === MATCH REPORT === */
+  .report-section {
+    padding: 0 16px 24px;
+  }
+  .report-card {
+    background: linear-gradient(135deg, #0a0a0a 0%, #111 100%);
+    border-radius: 6px;
+    padding: 16px;
+    border-left: 3px solid #c8102e;
+  }
+  .report-headline {
+    font-size: 18px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1.3;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .report-sub {
+    font-size: 11px;
+    color: #5a7a99;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .report-placeholder {
+    font-size: 13px;
+    color: #334455;
+    font-style: italic;
+  }
+
+  /* === STUDIO ANALYSIS === */
+  .studio-section {
+    padding: 0 16px 24px;
+  }
+  .speech-bubble {
+    background: #0d1a2a;
+    border-radius: 12px;
+    border-top-left-radius: 4px;
+    padding: 14px 16px;
+    position: relative;
+    margin-top: 8px;
+    border: 1px solid #1a2a3a;
+  }
+  .speech-bubble::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 16px;
+    width: 0; height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #1a2a3a;
+  }
+  .speech-bubble::after {
+    content: '';
+    position: absolute;
+    top: -7px;
+    left: 17px;
+    width: 0; height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid #0d1a2a;
+  }
+  .pundit-name {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #ffd700;
+    margin-bottom: 6px;
+  }
+  .pundit-quote {
+    font-size: 14px;
+    color: #ccd6e0;
+    line-height: 1.5;
+    font-style: italic;
+  }
+  .studio-placeholder {
+    font-size: 13px;
+    color: #334455;
+    font-style: italic;
+    margin-top: 8px;
   }
 
   /* === GOAL OVERLAY === */
@@ -306,7 +413,10 @@
     <div class="player">
       <div class="player-name">Desi</div>
       <div class="player-label">Home</div>
-      <button class="add-btn" onclick="addPoint('desi')">+</button>
+      <div class="player-btns">
+        <button class="score-btn btn-minus" onclick="removePoint('desi')">&minus;</button>
+        <button class="score-btn btn-plus" onclick="addPoint('desi')">+</button>
+      </div>
     </div>
     <div class="score-middle">
       <div class="score-num" id="score-desi">0</div>
@@ -316,16 +426,19 @@
     <div class="player">
       <div class="player-name">Danny</div>
       <div class="player-label">Away</div>
-      <button class="add-btn" onclick="addPoint('danny')">+</button>
+      <div class="player-btns">
+        <button class="score-btn btn-plus" onclick="addPoint('danny')">+</button>
+        <button class="score-btn btn-minus" onclick="removePoint('danny')">&minus;</button>
+      </div>
     </div>
   </div>
 </div>
 
 <!-- BETTING MARKETS -->
 <div class="markets-section">
-  <div class="markets-header">
-    <span class="markets-title">Live Markets</span>
-    <span class="markets-live">In-Play</span>
+  <div class="section-header">
+    <span class="section-title">Live Markets</span>
+    <span class="section-badge">In-Play</span>
   </div>
 
   <div class="market-card" id="market-winner">
@@ -375,6 +488,30 @@
   </div>
 </div>
 
+<!-- MATCH REPORT -->
+<div class="report-section">
+  <div class="section-header">
+    <span class="section-title">Match Report</span>
+    <span class="section-badge">Sky Sports</span>
+  </div>
+  <div class="report-card" id="report-card">
+    <div class="report-headline" id="report-headline"></div>
+    <div class="report-sub" id="report-sub"></div>
+    <div class="report-placeholder" id="report-placeholder">Awaiting first point...</div>
+  </div>
+</div>
+
+<!-- STUDIO ANALYSIS -->
+<div class="studio-section">
+  <div class="section-header">
+    <span class="section-title">Studio Analysis</span>
+    <span class="section-badge">MNF</span>
+  </div>
+  <div id="studio-content">
+    <div class="studio-placeholder">The pundits are warming up...</div>
+  </div>
+</div>
+
 <!-- RESET -->
 <div class="reset-area">
   <button class="reset-btn" onclick="resetScores()">Reset Season</button>
@@ -409,13 +546,26 @@
   function addPoint(player) {
     scores[player]++;
     render();
+    generateHeadline(player);
+    generatePunditQuote(player);
     triggerCelebration();
+  }
+
+  function removePoint(player) {
+    if (scores[player] > 0) {
+      scores[player]--;
+      render();
+    }
   }
 
   function resetScores() {
     if (confirm('Reset the season? This clears all scores.')) {
       scores = { desi: 0, danny: 0 };
       render();
+      document.getElementById('report-headline').textContent = '';
+      document.getElementById('report-sub').textContent = '';
+      document.getElementById('report-placeholder').textContent = 'Awaiting first point...';
+      document.getElementById('studio-content').innerHTML = '<div class="studio-placeholder">The pundits are warming up...</div>';
     }
   }
 
@@ -449,6 +599,128 @@
       oddsDesEl.textContent = loserOdds[lead - 1];
       oddsDrawEl.textContent = drawOdds[lead - 1];
     }
+  }
+
+  // --- Match Report Headlines ---
+  function generateHeadline(scorer) {
+    const other = scorer === 'desi' ? 'danny' : 'desi';
+    const sName = scorer === 'desi' ? 'DESI' : 'DANNY';
+    const oName = other === 'desi' ? 'DESI' : 'DANNY';
+    const diff = scores[scorer] - scores[other];
+    const total = scores.desi + scores.danny;
+
+    let headlines;
+
+    if (diff >= 3) {
+      headlines = [
+        `${sName} PULLS CLEAR IN DOMINANT DISPLAY`,
+        `RUTHLESS ${sName} LEAVES ${oName} SHELL-SHOCKED`,
+        `${oName} IN CRISIS AS ${sName} RUNS RIOT`,
+        `CLINICAL ${sName} OPENS UP COMMANDING LEAD`,
+        `${sName} MASTERCLASS LEAVES ${oName} IN TATTERS`,
+      ];
+    } else if (diff === 1) {
+      headlines = [
+        `${sName} EDGES AHEAD IN TIGHT CONTEST`,
+        `${sName} STUNS ${oName} IN LATE DRAMA`,
+        `HEARTBREAK FOR ${oName} AS ${sName} NICKS IT`,
+        `${sName} TAKES THE LEAD IN PULSATING CLASH`,
+        `DRAMA! ${sName} SNATCHES THE ADVANTAGE`,
+      ];
+    } else if (diff === 2) {
+      headlines = [
+        `${sName} STARTING TO PULL AWAY`,
+        `${oName} UNDER PRESSURE AS ${sName} EXTENDS LEAD`,
+        `CLINICAL ${sName} PULLS CLEAR`,
+        `${sName} DOUBLES THE ADVANTAGE OVER ${oName}`,
+        `${oName} ROCKED AS ${sName} TURNS THE SCREW`,
+      ];
+    } else if (diff === 0) {
+      headlines = [
+        `${sName} LEVELS IT! WE'RE ALL SQUARE`,
+        `INCREDIBLE SCENES! ${sName} BRINGS IT LEVEL`,
+        `${sName} DRAGS IT BACK! GAME ON`,
+        `DRAMA! ${sName} EQUALISES IN SENSATIONAL STYLE`,
+        `ALL SQUARE! THE MOMENTUM HAS SHIFTED`,
+      ];
+    } else {
+      headlines = [
+        `${sName} PULLS ONE BACK! IS A COMEBACK ON?`,
+        `CONSOLATION FOR ${sName} BUT ${oName} STILL LEADS`,
+        `${sName} SHOWS FIGHT WITH A REPLY`,
+        `${sName} REFUSES TO LIE DOWN`,
+      ];
+    }
+
+    const headline = headlines[Math.floor(Math.random() * headlines.length)];
+    const sub = `Round ${total} \u00B7 ${scores.desi} - ${scores.danny}`;
+
+    document.getElementById('report-placeholder').textContent = '';
+    document.getElementById('report-headline').textContent = headline;
+    document.getElementById('report-sub').textContent = sub;
+  }
+
+  // --- Pundit Quotes ---
+  const garyQuotes = {
+    scorer: [
+      "Ooooh! {SCORER}'s absolutely done {OTHER} there, Jamie! High press, clinical finish!",
+      "That is BRILLIANT from {SCORER}. You cannot defend that. World class.",
+      "I'm sorry but {SCORER} is just on another level tonight. {OTHER} doesn't know what day it is.",
+      "Look at the composure! {SCORER}'s looked at {OTHER}, sized up the situation, and gone BANG.",
+      "That's the sign of a champion, Jamie. When the pressure's on, {SCORER} delivers.",
+      "{SCORER}'s reading {OTHER} like a book! Absolutely magnificent.",
+      "You talk about the big moments in big games... THAT is why {SCORER} turns up.",
+    ],
+    conceder: [
+      "I'm looking at {OTHER}'s defense there, it's non-existent. Shocking.",
+      "{OTHER} has got to do better there. You can't switch off at this level.",
+      "That is criminal from {OTHER}. Absolutely criminal. Where's the awareness?",
+      "{OTHER}'s been found out. I said it before this round and I'll say it again.",
+      "Look at {OTHER}'s body language. Head's gone. Absolutely gone.",
+    ],
+  };
+
+  const jamieQuotes = {
+    scorer: [
+      "Look at the footwork, Gary! {SCORER}'s played that perfectly!",
+      "{SCORER}'s on FIRE! You could see that one coming a mile off!",
+      "That's a massive momentum shift. {SCORER}'s got the bit between the teeth now.",
+      "What a response from {SCORER}! The mentality on show here is frightening.",
+      "{SCORER} is taking the game to {OTHER} and I LOVE it!",
+      "SCENES! {SCORER} with nerves of absolute steel! That's what you need!",
+      "Gary, when {SCORER}'s in this mood, you simply cannot stop what's coming.",
+    ],
+    conceder: [
+      "{OTHER}'s bottled it for me. That's a massive momentum shift.",
+      "I feel for {OTHER} there but you've got to show more. Got to show character.",
+      "{OTHER} just didn't turn up for that one. Really disappointing.",
+      "You can see {OTHER}'s overthinking it. Sometimes you just have to back yourself.",
+      "The nerves have got to {OTHER}. You could see it from the studio.",
+    ],
+  };
+
+  function generatePunditQuote(scorer) {
+    const other = scorer === 'desi' ? 'danny' : 'desi';
+    const sName = scorer === 'desi' ? 'Desi' : 'Danny';
+    const oName = other === 'desi' ? 'Desi' : 'Danny';
+
+    // Pick Gary or Jamie randomly
+    const isGary = Math.random() > 0.5;
+    const punditName = isGary ? 'Gary Neville' : 'Jamie Carragher';
+    const bank = isGary ? garyQuotes : jamieQuotes;
+
+    // 70% scorer-focused, 30% conceder-focused
+    const pool = Math.random() < 0.7 ? bank.scorer : bank.conceder;
+    let quote = pool[Math.floor(Math.random() * pool.length)];
+    quote = quote.replace(/\{SCORER\}/g, sName).replace(/\{OTHER\}/g, oName);
+
+    const studioEl = document.getElementById('studio-content');
+    studioEl.innerHTML = `
+      <div class="speech-bubble">
+        <div class="pundit-name">${punditName}</div>
+        <div class="pundit-quote">"${quote}"</div>
+      </div>
+    `;
   }
 
   // --- Celebration ---
